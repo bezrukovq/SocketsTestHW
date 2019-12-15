@@ -21,10 +21,14 @@ class MessageAdapter() : RecyclerView.Adapter<MessageAdapter.MessagesViewHolder>
     }
 
     override fun onBindViewHolder(holder: MessagesViewHolder, position: Int) =
-        holder.bindViews(messagesList[position])
+        holder.bindViews(messagesList[position],position)
 
     inner class MessagesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindViews(message: Message) {
+        fun bindViews(message: Message, i: Int) {
+            itemView.name.visibility = View.VISIBLE
+            if (i>0)
+                if (messagesList[i].user.equals(messagesList[i-1].user))
+                    itemView.name.visibility = View.GONE
             itemView.name.text = message.user
             itemView.text.text = message.message
         }
